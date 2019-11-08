@@ -1,0 +1,72 @@
+//CREATE SQL TABLES
+// users:
+
+CREATE TABLE users(
+	users_id int NOT null AUTO_INCREMENT PRIMARY KEY,
+    users_first varchar(256) NOT null,
+    users_last varchar(256) NOT null,
+    users_Uname varchar(256) NOT null,
+    users_pwd varchar(256) NOT null,
+    user_login_date date,
+    company_section varchar(256) NOT null,
+    company_id varchar(256) NOT null,
+    FOREIGN KEY (company_id) REFERENCES company(company_id)
+);
+
+// company:
+
+CREATE TABLE company(
+	company_id int NOT null PRIMARY KEY AUTO_INCREMENT,
+    company_name varchar(256) not null,
+    company_sections int(11) not null
+);
+
+//leads
+CREATE TABLE leads (
+        leads_id int(11) NOT null AUTO_INCREMENT PRIMARY KEY,
+        users_id int(11) NOT null,
+        users_section varchar(256) NOT null,    
+        company_id int(11) NOT null,
+        company_name varchar(256) NOT null,
+        FOREIGN KEY (users_id) REFERENCES users(users_id),
+        FOREIGN KEY (users_section) REFERENCES users(users_section),
+        FOREIGN KEY (company_id) REFERENCES company(company_id),
+        FOREIGN KEY (company_name) REFERENCES company(company_name)
+    );
+
+//confirm holiday
+
+CREATE TABLE confirmedholiday (
+    holiday_id int(11) NOT null PRIMARY KEY,
+    holiday_start date,
+    holiday_end date,
+    company_id int(11),
+    users_id int(11),
+    FOREIGN KEY (users_id) REFERENCES users(users_id)
+);
+
+//deny holiday
+
+CREATE TABLE deniedholiday (
+    holiday_id int(11) NOT null PRIMARY KEY,
+    holiday_start date,
+    holiday_end date,
+    company_id int(11),
+    users_id int(11),
+    comm varchar(50)
+);
+
+//creating a database
+
+CREATE DATABASE 'db-name'
+
+
+
+
+
+//
+INSERT INTO confirmedholiday (holiday_start, holiday_end, company_id, users_id) VALUES ('0000-00-00', '0000-00-00', '2', '7');
+//
+INSERT INTO deniedholiday (holiday_start, holiday_end, company_id, users_id, comm) VALUES ('0000-00-00', '0000-00-00', '2', '7', 'WORK');
+//
+INSERT INTO holiday (holiday_start, holiday_end, users_id, company_id, users_section) VALUES ('000000-00', '000000-00', '7', '2', '4');
